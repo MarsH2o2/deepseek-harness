@@ -1,0 +1,23 @@
+name: Mirror deepseek-harness to Gitee
+on:
+  schedule:
+    # UTC时间，每天凌晨执行，对应北京时间早8点；可自行修改cron
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 支持手动点击触发同步
+  push:
+    branches: [ master ] # 仅 master 分支推送时触发
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror to Gitee
+        uses: Yikun/hub-mirror-action@v1.5
+        with:
+          src: github/MarsH2o2/deepseek-harness
+          dst: gitee/MarsH2o2/deepseek-harness
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token: ${{ secrets.GITEE_TOKEN }}
+          force_update: true
+          debug: false
+
+          
